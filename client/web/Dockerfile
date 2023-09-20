@@ -11,8 +11,8 @@ ENV REACT_APP_API_HOST $REACT_APP_API_HOST
 
 # Copy package.json and package-lock.json before other files
 # Utilise Docker cache to save re-installing dependencies if unchanged
-COPY RealChar/client/web/package.json ./
-COPY RealChar/client/web/package-lock.json ./
+COPY package.json ./
+COPY package-lock.json ./
 
 # Install dependencies
 RUN npm install
@@ -30,7 +30,7 @@ FROM nginx:stable-alpine
 COPY --from=build /app/build /usr/share/nginx/html
 
 # Nginx config
-COPY RealChar/client/web/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80 to the Docker host, so we can access it
 # from the outside
